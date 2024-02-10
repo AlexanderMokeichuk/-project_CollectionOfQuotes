@@ -1,0 +1,10 @@
+.toolBarLink {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+}
+.toolBarLink:hover {
+  color: blue;
+  text-decoration-line: underline;
+}

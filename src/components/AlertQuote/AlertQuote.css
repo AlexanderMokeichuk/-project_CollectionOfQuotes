@@ -1,0 +1,6 @@
+.quote {
+  border: 2px solid white;
+}
+.quote:hover {
+  border: 2px solid blue;
+}

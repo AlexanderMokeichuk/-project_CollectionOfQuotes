@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {PostQuote, Quote} from "../../type";
+import React, {useCallback, useEffect, useState} from "react";
+import {GetPost, PostQuote, Quote} from "../../type";
 import {useNavigate, useParams} from "react-router-dom";
 import axiosApi from "../../axiosApi.ts";
 import Spinner from "../../components/Spinner/Spinner.tsx";
@@ -17,6 +17,26 @@ const NewQuote: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [quote, setQuote] = useState<Quote>(defaultState);
 
+  const fetchQuote = useCallback(async () => {
+    setLoading(true);
+    const {data: response} = await axiosApi.get<GetPost | null>("/quotes/" + params.id + ".json");
+    if (response) {
+      setQuote({
+        author: `${response.author}`,
+        category: `${response.category}`,
+        text: `${response.text},`
+      });
+    }
+    setLoading(false);
+  }, [params.id]);
+
+  useEffect(() => {
+    if (params.id) {
+      void fetchQuote();
+    } else {
+      setQuote(defaultState);
+    }
+  }, [fetchQuote, params.id]);
 
   const changeForm = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setQuote(prevState => ({
@@ -39,7 +59,7 @@ const NewQuote: React.FC = () => {
     try {
       if (params.id) {
         await axiosApi.patch("/quotes/" + params.id + ".json", {...quote});
-        navigate("/");
+        navigate(-1);
       } else {
         await axiosApi.post("/quotes.json", post);
       }
@@ -62,7 +82,7 @@ const NewQuote: React.FC = () => {
           value={quote.category}
           onChange={changeForm}
         >
-          <option selected disabled>Category</option>
+          <option defaultValue={defaultState.category}>Category</option>
           {CATEGORY_OPTIONS.map((category) => {
             return <option key={`${category.value}`} value={`${category.value}`}>{category.category}</option>;
           })}

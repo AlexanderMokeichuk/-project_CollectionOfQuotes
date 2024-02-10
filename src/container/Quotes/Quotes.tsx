@@ -30,7 +30,7 @@ const Quotes: React.FC = () => {
 
   useEffect(() => {
     void fetchQuotes();
-  }, [fetchQuotes]);
+  }, [fetchQuotes, params.id]);
 
   let blockQuotes = (
     <>
@@ -39,15 +39,16 @@ const Quotes: React.FC = () => {
       </div>
 
       <div className={"col"}>
-        {quotes.map((quote) => <AlertQuote quote={quote}/>)}
+        {quotes.map((quote) => <AlertQuote key={quote.id} quote={quote}/>)}
       </div>
     </>
   );
 
   if (loading) blockQuotes = <Spinner/>;
+  if (!loading && !quotes.length) blockQuotes = <h1 className={"text-center border-bottom"}>Add post</h1>;
 
   return (
-    <div className={"row"}>
+    <div className={"d-flex gap-3 justify-content-center"}>
       {blockQuotes}
     </div>
   );
