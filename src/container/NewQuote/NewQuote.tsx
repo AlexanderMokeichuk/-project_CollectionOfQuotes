@@ -7,19 +7,19 @@ import {CATEGORY_OPTIONS} from "../../constants.ts";
 
 const defaultState: Quote = {
   author: "",
-  category: "",
+  category: "star-wars",
   text: "",
-}
+};
 
 const NewQuote: React.FC = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [loading, setLoading] = useState(false);
-  const [quote, setQote] = useState<Quote>(defaultState);
+  const [quote, setQuote] = useState<Quote>(defaultState);
 
 
   const changeForm = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setQote(prevState => ({
+    setQuote(prevState => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
@@ -37,13 +37,13 @@ const NewQuote: React.FC = () => {
     };
 
     try {
-      if(params.id) {
+      if (params.id) {
         await axiosApi.patch("/quotes/" + params.id + ".json", {...quote});
         navigate("/");
       } else {
         await axiosApi.post("/quotes.json", post);
       }
-      setQote(defaultState);
+      setQuote(defaultState);
     } finally {
       setLoading(false);
     }
@@ -57,13 +57,14 @@ const NewQuote: React.FC = () => {
         <select
           name={"category"}
           className={"form-select form-select-sm"}
+          required
 
           value={quote.category}
           onChange={changeForm}
         >
-          <option>Category</option>
+          <option selected disabled>Category</option>
           {CATEGORY_OPTIONS.map((category) => {
-            return <option key={`${category.value}`} value={`${category.value}`}>{category.category}</option>
+            return <option key={`${category.value}`} value={`${category.value}`}>{category.category}</option>;
           })}
         </select>
       </div>

@@ -1,16 +1,15 @@
 import {Link} from "react-router-dom";
+import {CATEGORY_OPTIONS} from "../../constants.ts";
 
 const ToolBar = () => {
   return (
     <ul>
-      <li><Link to={""}>All</Link></li>
-      <li><Link to={""}>Star Wars</Link></li>
-      <li><Link to={""}>Famous people</Link></li>
-      <li><Link to={""}>Saying</Link></li>
-      <li><Link to={""}>Humor</Link></li>
-      <li><Link to={""}>Motivational</Link></li>
+      <li><Link to={"/quotes"}>All</Link></li>
+      {CATEGORY_OPTIONS.map((item) => {
+        return <li><Link to={`/quotes/${item.value}`}>{item.category}</Link></li>;
+      })}
     </ul>
-  )
+  );
 };
 
 export default ToolBar;
