@@ -71,12 +71,12 @@ const NewQuote: React.FC = () => {
   };
 
   let form = (
-    <form onSubmit={onFormSubmit} className={"form-control d-flex flex-column"}>
-      <div className={"form-group"}>
-        <label>Category</label>
+    <form onSubmit={onFormSubmit} className={"form-control w-75 d-flex gap-3 flex-column"}>
+      <div className={"form-group text-primary"}>
+        <label className={"fs-5"}>Category</label>
         <select
           name={"category"}
-          className={"form-select form-select-sm"}
+          className={"form-select form-select-sm text-primary"}
           required
 
           value={quote.category}
@@ -90,12 +90,11 @@ const NewQuote: React.FC = () => {
       </div>
 
       <div className="mb-3">
-        <label>Author</label>
+        <label className={"fs-5 text-primary"}>Author</label>
         <input
           type="text"
           name={"author"}
           className="form-control"
-          placeholder="author"
           required
 
           value={quote.author}
@@ -104,10 +103,11 @@ const NewQuote: React.FC = () => {
       </div>
 
       <div className="mb-3">
-        <label>Text</label>
+        <label className={"fs-5 text-primary"}>Text</label>
         <textarea
           name={"text"}
           className="form-control"
+          style={{minHeight: 300}}
           required
 
           value={quote.text}
@@ -121,7 +121,7 @@ const NewQuote: React.FC = () => {
   if (loading) form = <Spinner/>;
 
   return (
-    <div>
+    <div className={"d-flex justify-content-center"}>
       {form}
     </div>
   );
