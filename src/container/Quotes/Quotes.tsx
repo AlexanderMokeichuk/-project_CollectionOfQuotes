@@ -49,7 +49,7 @@ const Quotes: React.FC = () => {
   if (!loading && !quotes.length) {
     blockQuotes = (
       <div className={"d-flex gap-5 align-items-center"}>
-        <h1 className={"border-bottom"}>Add quote</h1>
+        <h1 className={"border-bottom"}>Add quotes</h1>
         <button type={"button"} onClick={() => navigate(-1)} className={"btn btn-primary"} style={{fontSize: 12, width:70, height:30}}>BACK</button>
       </div>
     );
