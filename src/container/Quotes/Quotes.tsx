@@ -1,12 +1,13 @@
 import React, {useCallback, useEffect, useState} from "react";
 import ToolBar from "../../components/ToolBar/ToolBar.tsx";
 import {GetPost, Quotes} from "../../type";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axiosApi from "../../axiosApi.ts";
 import Spinner from "../../components/Spinner/Spinner.tsx";
 import AlertQuote from "../../components/AlertQuote/AlertQuote.tsx";
 
 const Quotes: React.FC = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const [quotes, setQuotes] = useState<Quotes[]>([]);
   const [loading, setLoading] = useState(false);
@@ -45,7 +46,14 @@ const Quotes: React.FC = () => {
   );
 
   if (loading) blockQuotes = <Spinner/>;
-  if (!loading && !quotes.length) blockQuotes = <h1 className={"text-center border-bottom"}>Add post</h1>;
+  if (!loading && !quotes.length) {
+    blockQuotes = (
+      <div className={"d-flex gap-5 align-items-center"}>
+        <h1 className={"border-bottom"}>Add post</h1>
+        <button type={"button"} onClick={() => navigate(-1)} className={"btn btn-primary"} style={{fontSize: 12, width:70, height:30}}>BACK</button>
+      </div>
+    );
+  }
 
   return (
     <div className={"d-flex gap-3 justify-content-center"}>
