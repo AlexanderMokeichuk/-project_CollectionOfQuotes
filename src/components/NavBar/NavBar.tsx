@@ -8,7 +8,7 @@ const NavBar = () => {
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <NavLink className="nav-link navBarLink" to={"/quotes"}>Quotes</NavLink>
+            <NavLink className="nav-link navBarLink" to={"/"}>Quotes</NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link navBarLink" to={"/new-quotes"}>New quote</NavLink>

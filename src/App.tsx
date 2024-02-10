@@ -11,7 +11,7 @@ function App() {
       <Header/>
       <main className={"container mt-5 text-white"}>
         <Routes>
-          <Route path={"/quotes"} element={(<Quotes/>)}/>
+          <Route path={"/"} element={(<Quotes/>)}/>
           <Route path={"/quotes/:id"} element={(<Quotes/>)}/>
           <Route path={"/new-quotes"} element={(<NewQuote/>)}/>
           <Route path={"/new-quotes/:id/edit"} element={(<NewQuote/>)}/>
